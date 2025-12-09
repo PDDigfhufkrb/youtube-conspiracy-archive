@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Архив Секретных Теорий</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Courier New', 'Cascadia Code', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(139, 0, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 85% 30%, rgba(139, 0, 0, 0.03) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+
+        /* Параллакс-эффект */
+        .parallax {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(20, 0, 0, 0.8)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%238b0000" stroke-width="0.5" stroke-dasharray="2,2"/></svg>');
+            z-index: -1;
+            transform: translateZ(-1px) scale(1.5);
+        }
+
+        /* Шапка */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title {
+            font-size: 4.5rem;
+            color: #8b0000;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-shadow: 
+                0 0 10px rgba(139, 0, 0, 0.7),
+                0 0 20px rgba(139, 0, 0, 0.5),
+                0 0 30px rgba(139, 0, 0, 0.3);
+            position: relative;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            5% { transform: translate(-2px, 2px); }
+            10% { transform: translate(2px, -2px); }
+            15% { transform: translate(-2px, -2px); }
+            20% { transform: translate(2px, 2px); }
+            25% { transform: translate(0); }
+        }
+
+        .subtitle-container {
+            margin: 30px 0;
+            height: 80px;
+            position: relative;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: #b0b0b0;
+            border-right: 3px solid #8b0000;
+            white-space: nowrap;
+            overflow: hidden;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .subtitle-1 {
+            width: 0;
+            animation: typewriter1 4s steps(40) 1s infinite alternate;
+        }
+
+        .subtitle-2 {
+            width: 0;
+            animation: typewriter2 4s steps(50) 6s infinite alternate;
+            opacity: 0;
+        }
+
+        @keyframes typewriter1 {
+            0% { width: 0; }
+            20% { width: 100%; }
+            80% { width: 100%; opacity: 1; }
+            90% { opacity: 0; width: 100%; }
+            100% { opacity: 0; width: 0; }
+        }
+
+        @keyframes typewriter2 {
+            0% { width: 0; opacity: 0; }
+            20% { width: 100%; opacity: 1; }
+            80% { width: 100%; opacity: 1; }
+            90% { opacity: 0; width: 100%; }
+            100% { opacity: 0; width: 0; }
+        }
+
+        .warning {
+            color: #ff4444;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: 1px dashed #8b0000;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Секция статей */
+        .articles-section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            background-color: rgba(15, 5, 5, 0.9);
+            border-top: 3px solid #8b0000;
+            box-shadow: 0 -10px 30px rgba(139, 0, 0, 0.2);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #8b0000;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8b0000, transparent);
+        }
+
+        /* Сетка статей */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .article-card {
+            background: linear-gradient(145deg, #1a0a0a, #0f0505);
+            border: 1px solid #330000;
+            border-radius: 10px;
+            padding: 30px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #8b0000, #ff0000);
+        }
+
+        .article-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.3);
+            border-color: #8b0000;
+        }
+
+        .article-icon {
+            font-size: 3rem;
+            color: #8b0000;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .article-title {
+            font-size: 1.8rem;
+            color: #d0d0d0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .youtuber-name {
+            color: #8b0000;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .article-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #a0a0a0;
+            margin-bottom: 20px;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px dashed #333;
+            padding-top: 15px;
+            margin-top: 20px;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: #8b0000;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 5px 0;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .read-more:hover {
+            border-bottom: 1px solid #8b0000;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+
+        .secret-note {
+            text-align: center;
+            margin-top: 80px;
+            font-size: 1rem;
+            color: #444;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 10px;
+        }
+
+        .secret-note:hover {
+            color: #8b0000;
+            text-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
+        }
+
+        /* Футер */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #444;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+            margin-top: 50px;
+            background-color: #0a0a0a;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.8rem;
+                letter-spacing: 4px;
+            }
+            
+            .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .article-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Параллакс-секция с заголовком -->
+    <section class="parallax">
+        <div class="parallax-bg"></div>
+        
+        <div class="header">
+            <h1 class="title">ТАЙНЫЙ АРХИВ</h1>
+            
+            <div class="subtitle-container">
+                <div class="subtitle subtitle-1">
+                    "То, что скрывают. То, что отрицают. То, во что вы не поверите."
+                </div>
+                <div class="subtitle subtitle-2">
+                    "Информация настолько опасна, что её не существует в официальных источниках."
+                </div>
+            </div>
+            
+            <div class="warning">
+                ⚠️ ДОСТУП ОГРАНИЧЕН. ВЫ ВХОДИТЕ В ЗОНУ КЛАССИФИЦИРОВАННОЙ ИНФОРМАЦИИ ⚠️
+            </div>
+        </div>
+        
+        <div class="scroll-hint">
+            <i class="fas fa-chevron-down" style="color: #8b0000; font-size: 2rem; animation: bounce 2s infinite;"></i>
+        </div>
+    </section>
+
+    <!-- Секция со статьями -->
+    <section class="articles-section">
+        <h2 class="section-title">РАСШИФРОВАННЫЕ ДОКУМЕНТЫ</h2>
+        
+        <div class="articles-grid" id="articlesGrid">
+            <!-- Статья 1 - MrBeast -->
+            <div class="article-card">
+                <div class="article-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <h3 class="article-title">КОД: <span class="youtuber-name">MRBEAST</span></h3>
+                <p class="article-description">
+                    Все мы знаем самого популярного ютубера на планете, но немногие знают, 
+                    что именно он был напрямую причастен к развалу Советского Союза и санкциям 
+                    против Китая. Встречайте живое воплощение капитализма, чьи филантропические 
+                    акции — лишь прикрытие для глобального экономического редизайна.
+                </p>
+                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
+                <div class="article-meta">
+                    <span>Уровень доступа: ОМЕГА</span>
+                    <span>Дата рассекречивания: 15.11.2023</span>
+                </div>
+            </div>
+            
+            <!-- Статья 2 - PewDiePie -->
+            <div class="article-card">
+                <div class="article-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3 class="article-title">ПРОЕКТ: <span class="youtuber-name">Т-СЕРИИ</span></h3>
+                <p class="article-description">
+                    Битва за первое место была спланированной операцией по отвлечению внимания. 
+                    Настоящая цель — внедрение алгоритмов контроля сознания через музыкальные 
+                    треки. Почему именно 100 миллионов подписчиков стали магическим числом?
+                </p>
+                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
+                <div class="article-meta">
+                    <span>Уровень доступа: БЕТА</span>
+                    <span>Дата рассекречивания: 08.11.2023</span>
+                </div>
+            </div>
+            
+            <!-- Статья 3 - Markiplier -->
+            <div class="article-card">
+                <div class="article-icon">
+                    <i class="fas fa-skull"></i>
+                </div>
+                <h3 class="article-title">ЭКСПЕРИМЕНТ: <span class="youtuber-name">ИСЧЕЗНОВЕНИЯ</span></h3>
+                <p class="article-title">СУБЪЕКТ: <span class="youtuber-name">MARKIPLIER</span></h3>
+                <p class="article-description">
+                    Его перерывы в публикации видео совпадают с резкими скачками в статистике 
+                    пропавших без вести по всему миру. Совпадение? Мы нашли связь между его 
+                    играми в хорроры и реальными исчезновениями.
+                </p>
+                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
+                <div class="article-meta">
+                    <span>Уровень доступа: ГАММА</span>
+                    <span>Дата рассекречивания: 01.11.2023</span>
+                </div>
+            </div>
+            
+            <!-- Статья 4 - Dude Perfect -->
+            <div class="article-card">
+                <div class="article-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3 class="article-title">ПРОГРАММА: <span class="youtuber-name">"СОВЕРШЕНСТВО"</span></h3>
+                <p class="article-title">ИСПОЛНИТЕЛИ: <span class="youtuber-name">DUDE PERFECT</span></h3>
+                <p class="article-description">
+                    Их нечеловеческая точность — результат секретного военного проекта. 
+                    Каждый трюк содержит закодированные координаты стратегических объектов. 
+                    Спорт или геополитическое оружие?
+                </p>
+                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
+                <div class="article-meta">
+                    <span>Уровень доступа: ДЕЛЬТА</span>
+                    <span>Дата рассекречивания: 25.10.2023</span>
+                </div>
+            </div>
+            
+            <!-- Статья 5 - Nastya -->
+            <div class="article-card">
+                <div class="article-icon">
+                    <i class="fas fa-child"></i>
+                </div>
+                <h3 class="article-title">ПРОТОКОЛ: <span class="youtuber-name">"НОВОЕ ПОКОЛЕНИЕ"</span></h3>
+                <p class="article-title">АГЕНТ: <span class="youtuber-name">LIKE NASTYA</span></h3>
+                <p class="article-description">
+                    Крупнейший детский канал — не развлечение, а массовый эксперимент 
+                    по формированию поведенческих паттернов. Почему контент повторяется 
+                    на 87 языках? Кто стоит за этой глобальной сетью влияния?
+                </p>
+                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
+                <div class="article-meta">
+                    <span>Уровень доступа: АЛЬФА</span>
+                    <span>Дата рассекречивания: 18.10.2023</span>
+                </div>
+            </div>
+            
+            <!-- Статья 6 - Vlad Bumaga -->
+            <div class="article-card">
+                <div class="article-icon">
+                    <i class="fas fa-paper-plane"></i>
+                </div>
+                <h3 class="article-title">ОПЕРАЦИЯ: <span class="youtuber-name">"БУМАЖНЫЙ ЩИТ"</span></h3>
+                <p class="article-title">КУРАТОР: <span class="youtuber-name">VLAD BUMAGA</span></h3>
+                <p class="article-description">
+                    Его бумажные конструкции — на самом деле прототипы защитных сооружений 
+                    нового поколения. Каждая поделка содержит элементы реальных военных 
+                    технологий, замаскированных под детское творчество.
+                </p>
+                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
+                <div class="article-meta">
+                    <span>Уровень доступа: ТЕТА</span>
+                    <span>Дата рассекречивания: 11.10.2023</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="secret-note" onclick="revealSecret()">
+            * Шёпот из архива: "Следующая цель уже выбрана... 7 дней до рассекречивания. Код: [ЗАШИФРОВАНО]"
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Архив засекреченной информации | Классификация: СОВЕРШЕННО СЕКРЕТНО</p>
+        <p>© 2023 Департамент Недоказанных Теорий. Все данные являются художественным вымыслом.</p>
+    </footer>
+
+    <script>
+        // Анимация появления карточек при скролле
+        function checkVisibility() {
+            const cards = document.querySelectorAll('.article-card');
+            const windowHeight = window.innerHeight;
+            
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const cardVisible = 150;
+                
+                if (cardTop < windowHeight - cardVisible) {
+                    card.classList.add('visible');
+                }
+            });
+        }
+        
+        // Инициализация при загрузке и при скролле
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
+        
+        // Секретное сообщение
+        function revealSecret() {
+            const secrets = [
+                "Цель: ДЖЕЙМС ДЖОЛЛИ. Расследование о его связи с инопланетными технологиями редактирования.",
+                "Цель: МОРГЕНШТЕРН. Анализ скрытых сообщений в автотюне и их влиянии на молодежь.",
+                "Цель: ИВАНГАЙ. Изучение феномена 'исчезновения' и последующего возвращения с новым контентом."
+            ];
+            
+            const randomSecret = secrets[Math.floor(Math.random() * secrets.length)];
+            alert("[РАСШИФРОВКА]: " + randomSecret + "\n\nДата публикации: " + 
+                  new Date(Date.now() + 7*24*60*60*1000).toLocaleDateString('ru-RU'));
+        }
+        
+        // Эффект печати для подзаголовков
+        let subtitleIndex = 0;
+        const subtitles = document.querySelectorAll('.subtitle');
+        
+        function cycleSubtitles() {
+            subtitles.forEach((sub, idx) => {
+                sub.style.opacity = idx === subtitleIndex ? '1' : '0';
+            });
+            
+            subtitleIndex = (subtitleIndex + 1) % subtitles.length;
+        }
+        
+        // Меняем подзаголовки каждые 5 секунд
+        setInterval(cycleSubtitles, 5000);
+        
+        // Анимация bounce для стрелки
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+                40% {transform: translateY(-10px);}
+                60% {transform: translateY(-5px);}
+            }
+            
+            .scroll-hint {
+                position: absolute;
+                bottom: 40px;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

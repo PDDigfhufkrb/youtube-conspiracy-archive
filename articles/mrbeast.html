@@ -1,1 +1,788 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДОКУМЕНТ #001: MRBEAST - ЖИВОЕ ВОПЛОЩЕНИЕ КАПИТАЛИЗМА</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Базовые стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            background-color: #0a0a0a;
+            color: #d0d0d0;
+            font-family: 'Courier New', 'Cascadia Code', monospace;
+            line-height: 1.7;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 0, 0, 0.03) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(139, 0, 0, 0.03) 0%, transparent 25%);
+            min-height: 100vh;
+        }
+
+        /* Навигация */
+        .top-nav {
+            background: rgba(15, 5, 5, 0.95);
+            border-bottom: 2px solid #8b0000;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-brand {
+            color: #8b0000;
+            font-size: 1.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .nav-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            margin-left: 25px;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            color: #8b0000;
+            text-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
+        }
+
+        /* Контейнер статьи */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        /* Заголовок статьи */
+        .article-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #330000;
+            position: relative;
+        }
+
+        .classification {
+            color: #8b0000;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-size: 2.8rem;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .youtuber-name {
+            color: #8b0000;
+            background: rgba(139, 0, 0, 0.1);
+            padding: 5px 15px;
+            border-radius: 3px;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Секции статьи */
+        .article-section {
+            margin-bottom: 50px;
+            background: rgba(20, 10, 10, 0.5);
+            border-left: 3px solid #8b0000;
+            padding: 25px;
+            border-radius: 0 5px 5px 0;
+            transition: transform 0.3s;
+        }
+
+        .article-section:hover {
+            transform: translateX(5px);
+            background: rgba(25, 10, 10, 0.7);
+        }
+
+        .section-title {
+            color: #8b0000;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title i {
+            font-size: 1.5rem;
+        }
+
+        /* "Доказательства" */
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .evidence-card {
+            background: rgba(30, 15, 15, 0.8);
+            border: 1px solid #440000;
+            padding: 20px;
+            border-radius: 5px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .evidence-card:hover {
+            border-color: #8b0000;
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+        }
+
+        .evidence-number {
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            background: #8b0000;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Цитаты */
+        .quote {
+            border-left: 4px solid #8b0000;
+            padding-left: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #b0b0b0;
+            background: rgba(139, 0, 0, 0.05);
+            padding: 15px 20px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* Секретные врезки */
+        .secret-box {
+            background: rgba(10, 5, 5, 0.9);
+            border: 2px dashed #8b0000;
+            padding: 20px;
+            margin: 30px 0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .secret-box:hover {
+            background: rgba(20, 10, 10, 0.9);
+            border-style: solid;
+        }
+
+        .secret-title {
+            color: #8b0000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Система комментариев */
+        .comments-section {
+            margin-top: 60px;
+            border-top: 2px solid #330000;
+            padding-top: 40px;
+        }
+
+        .comments-title {
+            color: #8b0000;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .comment-form {
+            background: rgba(20, 10, 10, 0.7);
+            padding: 25px;
+            border-radius: 5px;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: #b0b0b0;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            background: rgba(10, 5, 5, 0.8);
+            border: 1px solid #440000;
+            color: #d0d0d0;
+            padding: 12px 15px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            transition: border 0.3s;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #8b0000;
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #8b0000;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #a00000;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+
+        /* Список комментариев */
+        .comments-list {
+            margin-top: 30px;
+        }
+
+        .comment {
+            background: rgba(25, 15, 15, 0.6);
+            border-left: 3px solid #550000;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+            transition: all 0.3s;
+        }
+
+        .comment:hover {
+            border-left-color: #8b0000;
+            background: rgba(30, 15, 15, 0.8);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .comment-author {
+            color: #8b0000;
+            font-weight: bold;
+        }
+
+        .comment-date {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .comment-content {
+            color: #c0c0c0;
+            line-height: 1.6;
+        }
+
+        /* Секретные кнопки */
+        .secret-button {
+            background: transparent;
+            border: 1px solid #8b0000;
+            color: #8b0000;
+            padding: 8px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+        }
+
+        .secret-button:hover {
+            background: rgba(139, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+        }
+
+        /* Футер */
+        .article-footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #330000;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #8b0000;
+            text-decoration: none;
+            margin-top: 20px;
+            padding: 10px 25px;
+            border: 1px solid #8b0000;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(139, 0, 0, 0.1);
+        }
+
+        /* Анимации */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .blinking {
+            animation: blink 2s infinite;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .evidence-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="top-nav">
+        <a href="../index.html" class="nav-brand">
+            <i class="fas fa-archive"></i> СЕКРЕТНЫЙ АРХИВ
+        </a>
+        <div class="nav-links">
+            <a href="../index.html"><i class="fas fa-home"></i> Главная</a>
+            <a href="../pages/upcoming.html"><i class="fas fa-calendar-alt"></i> Анонсы</a>
+            <a href="../pages/donate.html"><i class="fas fa-donate"></i> Поддержать</a>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="article-container">
+        <header class="article-header">
+            <div class="classification blinking">
+                <i class="fas fa-lock"></i> ДОКУМЕНТ УРОВНЯ "ОМЕГА"
+            </div>
+            <h1 class="article-title">
+                ОПЕРАЦИЯ "<span class="youtuber-name">КАПИТАЛИСТИЧЕСКАЯ РЕВОЛЮЦИЯ</span>":<br>
+                <span class="youtuber-name">MRBEAST</span> КАК ЖИВОЕ ВОПЛОЩЕНИЕ СИСТЕМЫ
+            </h1>
+            
+            <div class="article-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Дата рассекречивания: 15.11.2023</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-user-secret"></i>
+                    <span>Агент: "НОЛЬ"</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-eye-slash"></i>
+                    <span>Просмотры: [ЗАШИФРОВАНО]</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Введение -->
+        <section class="article-section">
+            <h2 class="section-title">
+                <i class="fas fa-exclamation-triangle"></i> ПРЕДУПРЕЖДЕНИЕ О РАСШИФРОВКЕ
+            </h2>
+            <p>Следующий материал был получен из анонимных источников в глубинах "Тёмной паутины". Документ содержит информацию, способную изменить ваше понимание современной экономической и политической реальности. Все совпадения случайны. Или нет.</p>
+            
+            <div class="quote">
+                "Они думают, что это благотворительность. Они не понимают, что каждый розданный доллар — это гвоздь в гроб старого мира."<br>
+                — Из расшифровки перехвата связи, 2021 год
+            </div>
+        </section>
+
+        <!-- Теория -->
+        <section class="article-section">
+            <h2 class="section-title">
+                <i class="fas fa-chess-king"></i> СУЩНОСТЬ ФЕНОМЕНА
+            </h2>
+            <p>Джеймс Стивен "Мистер Бист" — не просто ютубер. Это проект. Живой, дышащий эксперимент по созданию идеального капиталистического субъекта. Его миссия: продемонстрировать силу денег так ярко, чтобы зритель начал верить в их абсолютную власть.</p>
+            
+            <div class="secret-box" onclick="revealSecret(1)">
+                <div class="secret-title">
+                    <i class="fas fa-eye"></i> СЕКРЕТНАЯ ЗАПИСЬ #001
+                </div>
+                <p id="secret-text-1">[Нажмите для расшифровки]</p>
+            </div>
+        </section>
+
+        <!-- Доказательства -->
+        <section class="article-section">
+            <h2 class="section-title">
+                <i class="fas fa-file-alt"></i> СОБРАННЫЕ УЛИКИ
+            </h2>
+            
+            <div class="evidence-grid">
+                <div class="evidence-card">
+                    <div class="evidence-number">1</div>
+                    <h3>Хронология совпадений</h3>
+                    <p>Каждый крупный экономический кризис последних 5 лет предварялся видео о "раздаче огромных сумм денег". Китайские санкции 2019 — за неделю до видео "Я дал $100,000 незнакомцу".</p>
+                </div>
+                
+                <div class="evidence-card">
+                    <div class="evidence-number">2</div>
+                    <h3>Архитектура влияния</h3>
+                    <p>География его "филантропии" точно совпадает с картой экономического влияния западных корпораций. Нет ни одного "подарка" в странах, находящихся под санкциями.</p>
+                </div>
+                
+                <div class="evidence-card">
+                    <div class="evidence-number">3</div>
+                    <h3>Советский союз 2.0</h3>
+                    <p>Его видео "Last to Leave Circle Wins $500,000" содержало ровно 15 участников. Столько же республик было в СССР. Совпадение? Мы так не думаем.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Связи -->
+        <section class="article-section">
+            <h2 class="section-title">
+                <i class="fas fa-project-diagram"></i> СЕТЬ ВЛИЯНИЯ
+            </h2>
+            <p>Анализ финансовых потоков показывает связи с 17 офшорными компаниями, три из которых были замечены в финансировании "цветных революций". Его команда — не просто друзья, это оперативная группа.</p>
+            
+            <div class="quote">
+                "Мы не создаем контент. Мы создаем реальность, где деньги решают всё. Зрители должны ХОТЕТЬ эти деньги, БОРОТЬСЯ за них, ВЕРИТЬ в них. Это новая религия."<br>
+                — Из предполагаемого внутреннего меморандума
+            </div>
+        </section>
+
+        <!-- Система комментариев -->
+        <section class="comments-section">
+            <h2 class="comments-title">
+                <i class="fas fa-comments"></i> АРХИВНЫЕ ЗАПИСИ
+                <span style="font-size: 0.8rem; color: #666;">(анонимные комментарии из "тёмной сети")</span>
+            </h2>
+            
+            <div class="comment-form">
+                <h3 style="color: #b0b0b0; margin-bottom: 20px;">
+                    <i class="fas fa-feather-alt"></i> ОСТАВИТЬ ЗАПИСЬ В АРХИВЕ
+                </h3>
+                
+                <div class="form-group">
+                    <label class="form-label">КОДОВОЕ ИМЯ:</label>
+                    <input type="text" class="form-input" id="commentName" placeholder="Агент Х, Свидетель Y...">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">ВАША ВЕРСИЯ СОБЫТИЙ:</label>
+                    <textarea class="form-textarea" id="commentText" placeholder="Дополнительные улики, теории, предположения..."></textarea>
+                </div>
+                
+                <button class="submit-btn" onclick="addComment()">
+                    <i class="fas fa-paper-plane"></i> ОТПРАВИТЬ В АРХИВ
+                </button>
+                
+                <button class="secret-button" onclick="generateRandomName()">
+                    <i class="fas fa-random"></i> СГЕНЕРИРОВАТЬ КОДОВОЕ ИМЯ
+                </button>
+            </div>
+            
+            <div class="comments-list" id="commentsList">
+                <!-- Примеры существующих комментариев -->
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">Агент "КРИПТОН"</span>
+                        <span class="comment-date">14.11.2023 | 23:47</span>
+                    </div>
+                    <div class="comment-content">
+                        Проверял по своим каналам. Его видео про "застрявшего в IKEA" вышло за день до падения шведской кроны. Слишком много "случайностей".
+                    </div>
+                </div>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">СОТРУДНИК Х</span>
+                        <span class="comment-date">13.11.2023 | 04:22</span>
+                    </div>
+                    <div class="comment-content">
+                        У меня есть скриншоты со старых серверов YouTube. В описаниях его первых видео были HEX-коды. Перевел один — получились координаты Форт-Нокса. Шутка? Не думаю.
+                    </div>
+                </div>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">ОЧЕВИДЕЦ 37</span>
+                        <span class="comment-date">11.11.2023 | 18:15</span>
+                    </div>
+                    <div class="comment-content">
+                        Его глаза на 37-й секунде каждого видео меняют цвет. Это не эффект освещения. Это маркер. Он не человек. Он программа.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Футер статьи -->
+        <footer class="article-footer">
+            <div class="disclaimer">
+                <p><strong>⚠️ ДИСКЛЕЙМЕР:</strong> Данный материал является художественным вымыслом и создан в развлекательных целях. MrBeast (Джеймс Стивен) — реальный человек и ютубер, чья благотворительная деятельность документально подтверждена.</p>
+                <p>Проект "Секретный архив" не утверждает, что представленные теории соответствуют действительности.</p>
+            </div>
+            
+            <div style="margin: 30px 0;">
+                <button class="secret-button" onclick="showNextTarget()">
+                    <i class="fas fa-user-secret"></i> УЗНАТЬ СЛЕДУЮЩУЮ ЦЕЛЬ
+                </button>
+            </div>
+            
+            <a href="../index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> ВЕРНУТЬСЯ В АРХИВ
+            </a>
+            
+            <p style="margin-top: 30px; font-size: 0.8rem; color: #444;">
+                Документ #001 | Уровень доступа: ОМЕГА<br>
+                Автоматическое уничтожение: [ДАННЫЕ УДАЛЕНЫ]
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Система комментариев
+        let commentCount = 3; // Начальное количество комментариев
+        
+        function addComment() {
+            const nameInput = document.getElementById('commentName');
+            const textInput = document.getElementById('commentText');
+            
+            if (!nameInput.value.trim() || !textInput.value.trim()) {
+                alert('[СИСТЕМА] Заполните все поля для отправки в архив');
+                return;
+            }
+            
+            // Создаем новый комментарий
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            
+            const date = new Date();
+            const dateStr = `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()} | ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+            
+            commentDiv.innerHTML = `
+                <div class="comment-header">
+                    <span class="comment-author">${escapeHtml(nameInput.value)}</span>
+                    <span class="comment-date">${dateStr}</span>
+                </div>
+                <div class="comment-content">
+                    ${escapeHtml(textInput.value)}
+                </div>
+            `;
+            
+            // Добавляем в начало списка
+            document.getElementById('commentsList').prepend(commentDiv);
+            
+            // Очищаем поля
+            nameInput.value = '';
+            textInput.value = '';
+            
+            // Эффект
+            commentDiv.style.opacity = '0';
+            setTimeout(() => {
+                commentDiv.style.transition = 'opacity 0.5s';
+                commentDiv.style.opacity = '1';
+            }, 10);
+            
+            // Сохраняем в localStorage
+            saveComments();
+            
+            // Секретное сообщение каждые 5 комментариев
+            commentCount++;
+            if (commentCount % 5 === 0) {
+                setTimeout(() => {
+                    alert('[СИСТЕМА] Ваша информация принята. Доступ к уровню БЕТА предоставлен.');
+                }, 500);
+            }
+        }
+        
+        // Генератор кодовых имён
+        const codeNames = [
+            'Агент "ТЕНЬ"', 'СОТРУДНИК 0', 'СВИДЕТЕЛЬ Х', 'ОЧЕВИДЕЦ 404', 
+            'ИСТОЧНИК ГАММА', 'ХРАНИТЕЛЬ', 'ДЕШИФРАТОР', 'НАБЛЮДАТЕЛЬ Z'
+        ];
+        
+        const adjectives = ['КРАСНЫЙ', 'СИНИЙ', 'ТЁМНЫЙ', 'СЕКРЕТНЫЙ', 'СКРЫТЫЙ', 'ПОСЛЕДНИЙ'];
+        const nouns = ['АГЕНТ', 'СОТРУДНИК', 'СВИДЕТЕЛЬ', 'ИСТОЧНИК', 'НАБЛЮДАТЕЛЬ'];
+        
+        function generateRandomName() {
+            const randomType = Math.random() > 0.5 ? 'list' : 'generated';
+            
+            if (randomType === 'list') {
+                const randomName = codeNames[Math.floor(Math.random() * codeNames.length)];
+                document.getElementById('commentName').value = randomName;
+            } else {
+                const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+                const noun = nouns[Math.floor(Math.random() * nouns.length)];
+                const num = Math.floor(Math.random() * 100);
+                document.getElementById('commentName').value = `${adj} ${noun} ${num}`;
+            }
+            
+            // Эффект
+            document.getElementById('commentName').style.backgroundColor = 'rgba(139, 0, 0, 0.1)';
+            setTimeout(() => {
+                document.getElementById('commentName').style.backgroundColor = '';
+            }, 500);
+        }
+        
+        // Секретные блоки
+        const secrets = {
+            1: "Расшифровка записи #001: В 2018 году, за 24 часа до объявления санкций против китайской компании Huawei, MrBeast выпустил видео 'Я купил ВЕСЬ товар в магазине Huawei'. В видео присутствует кадр, где на коробке виден штрих-код. При сканировании он ведет на сайт Министерства торговли США. Случайность? Мы отследили 17 таких 'совпадений'."
+        };
+        
+        function revealSecret(id) {
+            const element = document.getElementById(`secret-text-${id}`);
+            if (element.textContent === '[Нажмите для расшифровки]') {
+                element.textContent = secrets[id];
+                element.style.color = '#8b0000';
+                element.parentElement.style.border = '2px solid #8b0000';
+                element.parentElement.style.background = 'rgba(20, 10, 10, 0.95)';
+                
+                // Звуковой эффект (опционально)
+                try {
+                    const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ');
+                    audio.volume = 0.3;
+                    audio.play();
+                } catch (e) {}
+            }
+        }
+        
+        // Следующая цель
+        function showNextTarget() {
+            const targets = [
+                "PEWDIEPIE: Анализ связи с 'тайным обществом 9-летних'",
+                "MARKIPLIER: Расследование о 'порталах' в его подвале",
+                "JACKSEPTICEYE: Изучение 'зелёных вспышек' в его глазах",
+                "DAN TDM: 'Бриллиантовая лихорадка' как прикрытие"
+            ];
+            
+            const randomTarget = targets[Math.floor(Math.random() * targets.length)];
+            alert(`[СИСТЕМА АРХИВА]\n\nСледующая цель для расследования:\n${randomTarget}\n\nДата публикации: ${new Date(Date.now() + 7*24*60*60*1000).toLocaleDateString('ru-RU')}`);
+        }
+        
+        // Сохранение комментариев в localStorage
+        function saveComments() {
+            const comments = [];
+            document.querySelectorAll('.comment').forEach(comment => {
+                const author = comment.querySelector('.comment-author').textContent;
+                const date = comment.querySelector('.comment-date').textContent;
+                const content = comment.querySelector('.comment-content').textContent;
+                comments.push({author, date, content});
+            });
+            
+            if (comments.length > 0) {
+                localStorage.setItem('mrbeast_comments', JSON.stringify(comments));
+            }
+        }
+        
+        // Загрузка комментариев из localStorage
+        function loadComments() {
+            const saved = localStorage.getItem('mrbeast_comments');
+            if (saved) {
+                const comments = JSON.parse(saved);
+                const container = document.getElementById('commentsList');
+                container.innerHTML = '';
+                
+                comments.forEach(comment => {
+                    const div = document.createElement('div');
+                    div.className = 'comment';
+                    div.innerHTML = `
+                        <div class="comment-header">
+                            <span class="comment-author">${escapeHtml(comment.author)}</span>
+                            <span class="comment-date">${escapeHtml(comment.date)}</span>
+                        </div>
+                        <div class="comment-content">
+                            ${escapeHtml(comment.content)}
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+        }
+        
+        // Защита от XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Загрузка при старте
+        window.addEventListener('DOMContentLoaded', () => {
+            loadComments();
+            
+            // Случайные эффекты
+            if (Math.random() > 0.7) {
+                setTimeout(() => {
+                    document.querySelector('.classification').style.animation = 'blink 0.5s infinite';
+                    setTimeout(() => {
+                        document.querySelector('.classification').style.animation = '';
+                    }, 2000);
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

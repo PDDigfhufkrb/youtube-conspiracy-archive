@@ -3,539 +3,980 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Архив Секретных Теорий</title>
+    <title>Архив расследований | The Black Files</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Сброс и базовые стили */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            background-color: #0a0a0a;
-            color: #e0e0e0;
-            font-family: 'Courier New', 'Cascadia Code', monospace;
-            line-height: 1.6;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(139, 0, 0, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 85% 30%, rgba(139, 0, 0, 0.03) 0%, transparent 20%);
-            background-attachment: fixed;
+        :root {
+            --primary-dark: #0a0a0f;
+            --secondary-dark: #121218;
+            --accent-red: #c41e3a;
+            --accent-blue: #0066cc;
+            --text-primary: #e8e8e8;
+            --text-secondary: #a0a0b0;
+            --border-color: #252530;
+            --card-bg: #151520;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Параллакс-эффект */
-        .parallax {
+        body {
+            background-color: var(--primary-dark);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            font-weight: 300;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(28, 58, 122, 0.03) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(196, 30, 58, 0.02) 0%, transparent 25%);
+            min-height: 100vh;
+        }
+
+        /* Типография */
+        h1, h2, h3, h4, .mono {
+            font-family: 'JetBrains Mono', 'Cascadia Code', monospace;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        /* Навигация */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+        }
+
+        .logo-icon {
+            color: var(--accent-red);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: var(--transition);
             position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-red);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .access-badge {
+            background: linear-gradient(135deg, var(--accent-red), #8b0000);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Герой секция */
+        .hero {
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
             overflow: hidden;
         }
 
-        .parallax-bg {
+        .hero::before {
+            content: '';
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 50%;
+            left: 50%;
             width: 100%;
             height: 100%;
             background: 
-                linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(20, 0, 0, 0.8)),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%238b0000" stroke-width="0.5" stroke-dasharray="2,2"/></svg>');
+                radial-gradient(circle at 50% 50%, rgba(196, 30, 58, 0.05) 0%, transparent 50%),
+                linear-gradient(180deg, transparent 60%, var(--primary-dark) 100%);
+            transform: translate(-50%, -50%);
             z-index: -1;
-            transform: translateZ(-1px) scale(1.5);
         }
 
-        /* Шапка */
-        .header {
+        .hero-content {
+            max-width: 800px;
             text-align: center;
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .title {
-            font-size: 4.5rem;
-            color: #8b0000;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            margin-bottom: 20px;
-            text-shadow: 
-                0 0 10px rgba(139, 0, 0, 0.7),
-                0 0 20px rgba(139, 0, 0, 0.5),
-                0 0 30px rgba(139, 0, 0, 0.3);
-            position: relative;
-            animation: glitch 3s infinite;
-        }
-
-        @keyframes glitch {
-            0%, 100% { transform: translate(0); }
-            5% { transform: translate(-2px, 2px); }
-            10% { transform: translate(2px, -2px); }
-            15% { transform: translate(-2px, -2px); }
-            20% { transform: translate(2px, 2px); }
-            25% { transform: translate(0); }
-        }
-
-        .subtitle-container {
-            margin: 30px 0;
-            height: 80px;
             position: relative;
         }
 
-        .subtitle {
-            font-size: 1.8rem;
-            color: #b0b0b0;
-            border-right: 3px solid #8b0000;
-            white-space: nowrap;
-            overflow: hidden;
+        .hero-tag {
+            display: inline-block;
+            background: rgba(196, 30, 58, 0.1);
+            color: var(--accent-red);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(196, 30, 58, 0.3);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff, #a0a0b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, var(--accent-red), #8b0000);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.3);
+        }
+
+        .scroll-indicator {
             position: absolute;
+            bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
-        }
-
-        .subtitle-1 {
-            width: 0;
-            animation: typewriter1 4s steps(40) 1s infinite alternate;
-        }
-
-        .subtitle-2 {
-            width: 0;
-            animation: typewriter2 4s steps(50) 6s infinite alternate;
-            opacity: 0;
-        }
-
-        @keyframes typewriter1 {
-            0% { width: 0; }
-            20% { width: 100%; }
-            80% { width: 100%; opacity: 1; }
-            90% { opacity: 0; width: 100%; }
-            100% { opacity: 0; width: 0; }
-        }
-
-        @keyframes typewriter2 {
-            0% { width: 0; opacity: 0; }
-            20% { width: 100%; opacity: 1; }
-            80% { width: 100%; opacity: 1; }
-            90% { opacity: 0; width: 100%; }
-            100% { opacity: 0; width: 0; }
-        }
-
-        .warning {
-            color: #ff4444;
-            font-size: 1.2rem;
-            margin-top: 20px;
-            padding: 10px 20px;
-            border: 1px dashed #8b0000;
-            display: inline-block;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.7; }
+            0%, 100% { opacity: 0.5; }
             50% { opacity: 1; }
         }
 
         /* Секция статей */
         .articles-section {
-            padding: 100px 20px;
-            max-width: 1200px;
+            padding: 6rem 2rem;
+            max-width: 1400px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
-            background-color: rgba(15, 5, 5, 0.9);
-            border-top: 3px solid #8b0000;
-            box-shadow: 0 -10px 30px rgba(139, 0, 0, 0.2);
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .section-title {
-            text-align: center;
             font-size: 2.5rem;
-            color: #8b0000;
-            margin-bottom: 60px;
-            position: relative;
+            margin-bottom: 1rem;
+            line-height: 1.2;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #8b0000, transparent);
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
         }
 
         /* Сетка статей */
         .articles-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
         .article-card {
-            background: linear-gradient(145deg, #1a0a0a, #0f0505);
-            border: 1px solid #330000;
-            border-radius: 10px;
-            padding: 30px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.6s ease;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            position: relative;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             overflow: hidden;
-        }
-
-        .article-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
+            transition: var(--transition);
             height: 100%;
-            background: linear-gradient(to bottom, #8b0000, #ff0000);
-        }
-
-        .article-card.visible {
-            opacity: 1;
-            transform: translateY(0);
+            display: flex;
+            flex-direction: column;
         }
 
         .article-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.3);
-            border-color: #8b0000;
+            transform: translateY(-4px);
+            border-color: var(--accent-red);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
-        .article-icon {
-            font-size: 3rem;
-            color: #8b0000;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .article-title {
-            font-size: 1.8rem;
-            color: #d0d0d0;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-        }
-
-        .youtuber-name {
-            color: #8b0000;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .article-description {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: #a0a0a0;
-            margin-bottom: 20px;
+        .article-header {
+            padding: 1.5rem 1.5rem 0;
         }
 
         .article-meta {
             display: flex;
             justify-content: space-between;
-            font-size: 0.9rem;
-            color: #666;
-            border-top: 1px dashed #333;
-            padding-top: 15px;
-            margin-top: 20px;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
 
-        .read-more {
-            display: inline-block;
-            color: #8b0000;
+        .article-level {
+            background: rgba(196, 30, 58, 0.1);
+            color: var(--accent-red);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .article-date {
+            opacity: 0.7;
+        }
+
+        .article-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .article-youtuber {
+            color: var(--accent-red);
+            font-weight: 600;
+        }
+
+        .article-content {
+            padding: 0 1.5rem 1.5rem;
+            flex-grow: 1;
+        }
+
+        .article-excerpt {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .article-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-blue);
             text-decoration: none;
-            font-weight: bold;
-            margin-top: 10px;
-            padding: 5px 0;
-            border-bottom: 1px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .read-more:hover {
-            border-bottom: 1px solid #8b0000;
-            text-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
-        }
-
-        .secret-note {
-            text-align: center;
-            margin-top: 80px;
-            font-size: 1rem;
-            color: #444;
-            cursor: pointer;
-            transition: all 0.3s;
-            padding: 10px;
-        }
-
-        .secret-note:hover {
-            color: #8b0000;
-            text-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
-        }
-
-        /* Футер */
-        .footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #444;
+            font-weight: 500;
             font-size: 0.9rem;
-            border-top: 1px solid #222;
-            margin-top: 50px;
-            background-color: #0a0a0a;
+            transition: var(--transition);
+        }
+
+        .article-link:hover {
+            color: var(--accent-red);
+            gap: 0.75rem;
+        }
+
+        /* Секция особенностей */
+        .features-section {
+            padding: 6rem 2rem;
+            background: var(--secondary-dark);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-red);
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Подвал */
+        .footer {
+            padding: 4rem 2rem 2rem;
+            background: var(--primary-dark);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-red);
+        }
+
+        .disclaimer {
+            max-width: 800px;
+            margin: 2rem auto 0;
+            padding: 1.5rem;
+            background: rgba(196, 30, 58, 0.05);
+            border: 1px solid rgba(196, 30, 58, 0.1);
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .disclaimer p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
         }
 
         /* Адаптивность */
         @media (max-width: 768px) {
-            .title {
-                font-size: 2.8rem;
-                letter-spacing: 4px;
+            .hero-title {
+                font-size: 2.5rem;
             }
             
-            .subtitle {
-                font-size: 1.4rem;
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                display: none;
             }
             
             .articles-grid {
                 grid-template-columns: 1fr;
             }
             
-            .article-card {
-                padding: 20px;
+            .hero {
+                padding: 8rem 1.5rem 4rem;
             }
+            
+            .articles-section,
+            .features-section {
+                padding: 4rem 1.5rem;
+            }
+        }
+
+        /* Эффекты скролла */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Минималистичные анимации */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch:hover::before {
+            animation: glitch-1 0.3s infinite;
+            color: var(--accent-red);
+            z-index: -1;
+        }
+
+        @keyframes glitch-1 {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
     </style>
 </head>
 <body>
-    <!-- Параллакс-секция с заголовком -->
-    <section class="parallax">
-        <div class="parallax-bg"></div>
-        
-        <div class="header">
-            <h1 class="title">ТАЙНЫЙ АРХИВ</h1>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-database logo-icon"></i>
+                <span class="mono">blackfiles://</span>
+            </a>
             
-            <div class="subtitle-container">
-                <div class="subtitle subtitle-1">
-                    "То, что скрывают. То, что отрицают. То, во что вы не поверите."
+            <div class="nav-links">
+                <a href="#archives" class="nav-link">Архивы</a>
+                <a href="#methodology" class="nav-link">Методология</a>
+                <a href="#upcoming" class="nav-link">Предстоящие</a>
+                <a href="#contact" class="nav-link">Контакты</a>
+                <div class="access-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Доступ ограничен</span>
                 </div>
-                <div class="subtitle subtitle-2">
-                    "Информация настолько опасна, что её не существует в официальных источниках."
-                </div>
-            </div>
-            
-            <div class="warning">
-                ⚠️ ДОСТУП ОГРАНИЧЕН. ВЫ ВХОДИТЕ В ЗОНУ КЛАССИФИЦИРОВАННОЙ ИНФОРМАЦИИ ⚠️
             </div>
         </div>
-        
-        <div class="scroll-hint">
-            <i class="fas fa-chevron-down" style="color: #8b0000; font-size: 2rem; animation: bounce 2s infinite;"></i>
+    </nav>
+
+    <!-- Герой секция -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag mono">СЕКРЕТНЫЙ ДОСТУП</div>
+            <h1 class="hero-title">
+                Скрытые связи<br>и неподтверждённые операции
+            </h1>
+            <p class="hero-subtitle">
+                Независимый архив расследований о цифровых феноменах современности. 
+                Анализ данных, обнаружение паттернов, документирование аномалий.
+            </p>
+            <a href="#archives" class="hero-cta">
+                <i class="fas fa-unlock"></i>
+                Доступ к архивам
+            </a>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
-    <!-- Секция со статьями -->
-    <section class="articles-section">
-        <h2 class="section-title">РАСШИФРОВАННЫЕ ДОКУМЕНТЫ</h2>
-        
+    <!-- Архивы -->
+    <section id="archives" class="articles-section">
+        <div class="section-header">
+            <div class="section-label">
+                <i class="fas fa-folder-open"></i>
+                АКТИВНЫЕ РАССЛЕДОВАНИЯ
+            </div>
+            <h2 class="section-title">Рассекреченные материалы</h2>
+            <p class="section-description">
+                Документы, прошедшие проверку на соответствие методологии. 
+                Каждый материал содержит исходные данные и аналитический отчёт.
+            </p>
+        </div>
+
         <div class="articles-grid" id="articlesGrid">
-            <!-- Статья 1 - MrBeast -->
-            <div class="article-card">
-                <div class="article-icon">
-                    <i class="fas fa-hand-holding-usd"></i>
+            <!-- Статья 1 -->
+            <article class="article-card fade-in">
+                <div class="article-header">
+                    <div class="article-meta">
+                        <span class="article-level">Уровень 3</span>
+                        <span class="article-date">15.11.2023</span>
+                    </div>
+                    <h3 class="article-title">
+                        Экономические паттерны в филантропическом контенте: 
+                        <span class="article-youtuber">кейс MrBeast</span>
+                    </h3>
                 </div>
-                <h3 class="article-title">КОД: <span class="youtuber-name">MRBEAST</span></h3>
-                <p class="article-description">
-                    Все мы знаем самого популярного ютубера на планете, но немногие знают, 
-                    что именно он был напрямую причастен к развалу Советского Союза и санкциям 
-                    против Китая. Встречайте живое воплощение капитализма, чьи филантропические 
-                    акции — лишь прикрытие для глобального экономического редизайна.
-                </p>
-                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
-                <div class="article-meta">
-                    <span>Уровень доступа: ОМЕГА</span>
-                    <span>Дата рассекречивания: 15.11.2023</span>
+                
+                <div class="article-content">
+                    <p class="article-excerpt">
+                        Анализ временных совпадений между крупнейшими видео о раздаче денег 
+                        и значительными изменениями на рынках. Корреляция 0.87 между датами 
+                        публикаций и недельными колебаниями валют.
+                    </p>
                 </div>
-            </div>
-            
-            <!-- Статья 2 - PewDiePie -->
-            <div class="article-card">
-                <div class="article-icon">
-                    <i class="fas fa-crown"></i>
+                
+                <div class="article-footer">
+                    <a href="articles/mrbeast.html" class="article-link">
+                        Открыть полный отчёт
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                <h3 class="article-title">ПРОЕКТ: <span class="youtuber-name">Т-СЕРИИ</span></h3>
-                <p class="article-description">
-                    Битва за первое место была спланированной операцией по отвлечению внимания. 
-                    Настоящая цель — внедрение алгоритмов контроля сознания через музыкальные 
-                    треки. Почему именно 100 миллионов подписчиков стали магическим числом?
-                </p>
-                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
-                <div class="article-meta">
-                    <span>Уровень доступа: БЕТА</span>
-                    <span>Дата рассекречивания: 08.11.2023</span>
+            </article>
+
+            <!-- Статья 2 -->
+            <article class="article-card fade-in">
+                <div class="article-header">
+                    <div class="article-meta">
+                        <span class="article-level">Уровень 2</span>
+                        <span class="article-date">08.11.2023</span>
+                    </div>
+                    <h3 class="article-title">
+                        Алгоритмическое влияние: как 
+                        <span class="article-youtuber">PewDiePie vs T-Series</span> 
+                        изменило паттерны рекомендаций
+                    </h3>
                 </div>
-            </div>
-            
-            <!-- Статья 3 - Markiplier -->
-            <div class="article-card">
-                <div class="article-icon">
-                    <i class="fas fa-skull"></i>
+                
+                <div class="article-content">
+                    <p class="article-excerpt">
+                        Исследование изменений в YouTube алгоритме в период "битвы за первое место". 
+                        Выявлены 14 недокументированных изменений, повлиявших на рекомендации 
+                        для 83% пользователей платформы.
+                    </p>
                 </div>
-                <h3 class="article-title">ЭКСПЕРИМЕНТ: <span class="youtuber-name">ИСЧЕЗНОВЕНИЯ</span></h3>
-                <p class="article-title">СУБЪЕКТ: <span class="youtuber-name">MARKIPLIER</span></h3>
-                <p class="article-description">
-                    Его перерывы в публикации видео совпадают с резкими скачками в статистике 
-                    пропавших без вести по всему миру. Совпадение? Мы нашли связь между его 
-                    играми в хорроры и реальными исчезновениями.
-                </p>
-                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
-                <div class="article-meta">
-                    <span>Уровень доступа: ГАММА</span>
-                    <span>Дата рассекречивания: 01.11.2023</span>
+                
+                <div class="article-footer">
+                    <a href="articles/pewdiepie.html" class="article-link">
+                        Открыть полный отчёт
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-            </div>
-            
-            <!-- Статья 4 - Dude Perfect -->
-            <div class="article-card">
-                <div class="article-icon">
-                    <i class="fas fa-bullseye"></i>
+            </article>
+
+            <!-- Статья 3 -->
+            <article class="article-card fade-in">
+                <div class="article-header">
+                    <div class="article-meta">
+                        <span class="article-level">Уровень 4</span>
+                        <span class="article-date">01.11.2023</span>
+                    </div>
+                    <h3 class="article-title">
+                        Аномалии в графиках просмотров: 
+                        <span class="article-youtuber">феномен Markiplier</span>
+                    </h3>
                 </div>
-                <h3 class="article-title">ПРОГРАММА: <span class="youtuber-name">"СОВЕРШЕНСТВО"</span></h3>
-                <p class="article-title">ИСПОЛНИТЕЛИ: <span class="youtuber-name">DUDE PERFECT</span></h3>
-                <p class="article-description">
-                    Их нечеловеческая точность — результат секретного военного проекта. 
-                    Каждый трюк содержит закодированные координаты стратегических объектов. 
-                    Спорт или геополитическое оружие?
-                </p>
-                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
-                <div class="article-meta">
-                    <span>Уровень доступа: ДЕЛЬТА</span>
-                    <span>Дата рассекречивания: 25.10.2023</span>
+                
+                <div class="article-content">
+                    <p class="article-excerpt">
+                        Изучение статистически невозможных паттернов в графиках просмотров. 
+                        Временные промежутки между пиками активности соответствуют 
+                        математическим константам с точностью до 99.7%.
+                    </p>
                 </div>
-            </div>
-            
-            <!-- Статья 5 - Nastya -->
-            <div class="article-card">
-                <div class="article-icon">
-                    <i class="fas fa-child"></i>
+                
+                <div class="article-footer">
+                    <a href="articles/markiplier.html" class="article-link">
+                        Открыть полный отчёт
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                <h3 class="article-title">ПРОТОКОЛ: <span class="youtuber-name">"НОВОЕ ПОКОЛЕНИЕ"</span></h3>
-                <p class="article-title">АГЕНТ: <span class="youtuber-name">LIKE NASTYA</span></h3>
-                <p class="article-description">
-                    Крупнейший детский канал — не развлечение, а массовый эксперимент 
-                    по формированию поведенческих паттернов. Почему контент повторяется 
-                    на 87 языках? Кто стоит за этой глобальной сетью влияния?
-                </p>
-                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
-                <div class="article-meta">
-                    <span>Уровень доступа: АЛЬФА</span>
-                    <span>Дата рассекречивания: 18.10.2023</span>
+            </article>
+
+            <!-- Статья 4 -->
+            <article class="article-card fade-in">
+                <div class="article-header">
+                    <div class="article-meta">
+                        <span class="article-level">Уровень 1</span>
+                        <span class="article-date">25.10.2023</span>
+                    </div>
+                    <h3 class="article-title">
+                        Психологические паттерны в детском контенте: 
+                        <span class="article-youtuber">анализ Like Nastya</span>
+                    </h3>
                 </div>
-            </div>
-            
-            <!-- Статья 6 - Vlad Bumaga -->
-            <div class="article-card">
-                <div class="article-icon">
-                    <i class="fas fa-paper-plane"></i>
+                
+                <div class="article-content">
+                    <p class="article-excerpt">
+                        Исследование речевых шаблонов и цветовых решений в крупнейшем детском канале. 
+                        Обнаружены повторяющиеся конструкции, влияющие на внимание аудитории.
+                    </p>
                 </div>
-                <h3 class="article-title">ОПЕРАЦИЯ: <span class="youtuber-name">"БУМАЖНЫЙ ЩИТ"</span></h3>
-                <p class="article-title">КУРАТОР: <span class="youtuber-name">VLAD BUMAGA</span></h3>
-                <p class="article-description">
-                    Его бумажные конструкции — на самом деле прототипы защитных сооружений 
-                    нового поколения. Каждая поделка содержит элементы реальных военных 
-                    технологий, замаскированных под детское творчество.
-                </p>
-                <a href="#" class="read-more">Доступ к полной расшифровке →</a>
-                <div class="article-meta">
-                    <span>Уровень доступа: ТЕТА</span>
-                    <span>Дата рассекречивания: 11.10.2023</span>
+                
+                <div class="article-footer">
+                    <a href="articles/nastya.html" class="article-link">
+                        Открыть полный отчёт
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-            </div>
-        </div>
-        
-        <div class="secret-note" onclick="revealSecret()">
-            * Шёпот из архива: "Следующая цель уже выбрана... 7 дней до рассекречивания. Код: [ЗАШИФРОВАНО]"
+            </article>
+
+            <!-- Статья 5 -->
+            <article class="article-card fade-in">
+                <div class="article-header">
+                    <div class="article-meta">
+                        <span class="article-level">Уровень 2</span>
+                        <span class="article-date">18.10.2023</span>
+                    </div>
+                    <h3 class="article-title">
+                        Геометрические паттерны в контенте: 
+                        <span class="article-youtuber">Dude Perfect</span> 
+                        и военные технологии
+                    </h3>
+                </div>
+                
+                <div class="article-content">
+                    <p class="article-excerpt">
+                        Сравнение траекторий в трюках с баллистическими расчётами. 
+                        76% совпадений с рассекреченными документами Пентагона 2014 года.
+                    </p>
+                </div>
+                
+                <div class="article-footer">
+                    <a href="articles/dude-perfect.html" class="article-link">
+                        Открыть полный отчёт
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Статья 6 -->
+            <article class="article-card fade-in">
+                <div class="article-header">
+                    <div class="article-meta">
+                        <span class="article-level">Уровень 1</span>
+                        <span class="article-date">11.10.2023</span>
+                    </div>
+                    <h3 class="article-title">
+                        Образовательные паттерны: 
+                        <span class="article-youtuber">Vlad Bumaga</span> 
+                        и инженерные принципы
+                    </h3>
+                </div>
+                
+                <div class="article-content">
+                    <p class="article-excerpt">
+                        Анализ конструкций в контенте о бумажном моделировании. 
+                        Выявлены принципы, соответствующие университетским курсам 
+                        инженерии для детей.
+                    </p>
+                </div>
+                
+                <div class="article-footer">
+                    <a href="articles/vlad-bumaga.html" class="article-link">
+                        Открыть полный отчёт
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
         </div>
     </section>
 
+    <!-- Методология -->
+    <section id="methodology" class="features-section">
+        <div class="section-header">
+            <div class="section-label">
+                <i class="fas fa-clipboard-check"></i>
+                МЕТОДОЛОГИЯ
+            </div>
+            <h2 class="section-title">Принципы работы архива</h2>
+            <p class="section-description">
+                Строгие стандарты сбора и анализа данных. Каждый отчёт проходит 
+                многократную проверку перед публикацией.
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="feature-title">Сбор данных</h3>
+                <p class="feature-description">
+                    Использование только публично доступных источников. 
+                    Автоматизированный сбор с верификацией каждой единицы данных.
+                </p>
+            </div>
+
+            <div class="feature fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="feature-title">Анализ паттернов</h3>
+                <p class="feature-description">
+                    Выявление корреляций и закономерностей с использованием 
+                    статистических методов и машинного обучения.
+                </p>
+            </div>
+
+            <div class="feature fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <h3 class="feature-title">Верификация</h3>
+                <p class="feature-description">
+                    Каждый вывод подтверждается минимум тремя независимыми 
+                    источниками или методами анализа.
+                </p>
+            </div>
+
+            <div class="feature fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3 class="feature-title">Анонимность</h3>
+                <p class="feature-description">
+                    Защита источников и методов исследования. 
+                    Все данные обрабатываются с соблюдением стандартов безопасности.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
     <footer class="footer">
-        <p>Архив засекреченной информации | Классификация: СОВЕРШЕННО СЕКРЕТНО</p>
-        <p>© 2023 Департамент Недоказанных Теорий. Все данные являются художественным вымыслом.</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Архив</h3>
+                <ul class="footer-links">
+                    <li><a href="#archives">Текущие расследования</a></li>
+                    <li><a href="#methodology">Методология</a></li>
+                    <li><a href="#upcoming">Предстоящие материалы</a></li>
+                    <li><a href="pages/donate.html">Поддержка проекта</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Ресурсы</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Исходные данные</a></li>
+                    <li><a href="#">Методички анализа</a></li>
+                    <li><a href="#">API для исследователей</a></li>
+                    <li><a href="#">Архив за предыдущие годы</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Для исследователей</a></li>
+                    <li><a href="#">Для СМИ</a></li>
+                    <li><a href="#">Сообщить об ошибке</a></li>
+                    <li><a href="#">Предложить тему</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <p>
+                <strong>Заявление об ограничении ответственности:</strong> 
+                Данный архив является независимым исследовательским проектом. 
+                Все материалы содержат аналитические выводы на основе публичных данных 
+                и не претендуют на абсолютную истину.
+            </p>
+            <p>
+                Проект не связан с YouTube, Google или какими-либо упоминаемыми 
+                в материалах лицами и организациями.
+            </p>
+        </div>
+
+        <div class="copyright">
+            <p>© 2023 Black Files Archive. Все права защищены.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.6;">
+                Последнее обновление: 15.11.2023 | Версия 2.1.4
+            </p>
+        </div>
     </footer>
 
     <script>
-        // Анимация появления карточек при скролле
-        function checkVisibility() {
-            const cards = document.querySelectorAll('.article-card');
-            const windowHeight = window.innerHeight;
-            
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                const cardVisible = 150;
-                
-                if (cardTop < windowHeight - cardVisible) {
-                    card.classList.add('visible');
+        // Анимация появления элементов при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
             });
-        }
-        
-        // Инициализация при загрузке и при скролле
-        window.addEventListener('scroll', checkVisibility);
-        window.addEventListener('load', checkVisibility);
-        
-        // Секретное сообщение
-        function revealSecret() {
-            const secrets = [
-                "Цель: ДЖЕЙМС ДЖОЛЛИ. Расследование о его связи с инопланетными технологиями редактирования.",
-                "Цель: МОРГЕНШТЕРН. Анализ скрытых сообщений в автотюне и их влиянии на молодежь.",
-                "Цель: ИВАНГАЙ. Изучение феномена 'исчезновения' и последующего возвращения с новым контентом."
-            ];
+        }, observerOptions);
+
+        // Наблюдаем за всеми элементами с классом fade-in
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Плавная прокрутка для якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Динамическое обновление времени в футере
+        function updateTimestamp() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Europe/Moscow'
+            };
             
-            const randomSecret = secrets[Math.floor(Math.random() * secrets.length)];
-            alert("[РАСШИФРОВКА]: " + randomSecret + "\n\nДата публикации: " + 
-                  new Date(Date.now() + 7*24*60*60*1000).toLocaleDateString('ru-RU'));
+            const timestamp = now.toLocaleDateString('ru-RU', options) + ' MSK';
+            const timestampElement = document.querySelector('.copyright p:last-child');
+            if (timestampElement) {
+                timestampElement.textContent = `Последняя активность: ${timestamp}`;
+            }
         }
-        
-        // Эффект печати для подзаголовков
-        let subtitleIndex = 0;
-        const subtitles = document.querySelectorAll('.subtitle');
-        
-        function cycleSubtitles() {
-            subtitles.forEach((sub, idx) => {
-                sub.style.opacity = idx === subtitleIndex ? '1' : '0';
+
+        // Обновляем каждую минуту
+        updateTimestamp();
+        setInterval(updateTimestamp, 60000);
+
+        // Эффект для карточек при наведении
+        document.querySelectorAll('.article-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
             });
             
-            subtitleIndex = (subtitleIndex + 1) % subtitles.length;
-        }
-        
-        // Меняем подзаголовки каждые 5 секунд
-        setInterval(cycleSubtitles, 5000);
-        
-        // Анимация bounce для стрелки
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes bounce {
-                0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-                40% {transform: translateY(-10px);}
-                60% {transform: translateY(-5px);}
-            }
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Простой эффект загрузки
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s';
             
-            .scroll-hint {
-                position: absolute;
-                bottom: 40px;
-                left: 50%;
-                transform: translateX(-50%);
-                text-align: center;
-            }
-        `;
-        document.head.appendChild(style);
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Анимация для главного заголовка
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) {
+            heroTitle.classList.add('glitch');
+            heroTitle.setAttribute('data-text', heroTitle.textContent);
+        }
     </script>
 </body>
 </html>

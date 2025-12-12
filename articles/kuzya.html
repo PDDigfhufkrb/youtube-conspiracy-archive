@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДОКУМЕНТ #007: THEBRIANMAPS - АГЕНТ КАРТОГРАФИЧЕСКОГО СИНДИКАТА</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --agent-green: #00ff88;
+            --matrix-green: #00cc66;
+            --dark-tech: #001100;
+            --terminal-bg: #0a0a0a;
+            --grid-color: #003300;
+            --scan-line: rgba(0, 255, 136, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--terminal-bg);
+            color: var(--agent-green);
+            font-family: 'Rajdhani', sans-serif;
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* СКАН-ЛИНИЯ */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--agent-green), transparent);
+            z-index: 9999;
+            animation: scan 4s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        /* ШАПКА В СТИЛЕ ТЕРМИНАЛА */
+        .terminal-header {
+            background: rgba(0, 20, 0, 0.9);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--agent-green);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .terminal-header::before {
+            content: '[ДОСТУП РАЗРЕШЕН]';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 0.9rem;
+            color: var(--matrix-green);
+            animation: blink 2s infinite;
+        }
+
+        .classification {
+            display: inline-block;
+            background: var(--dark-tech);
+            color: var(--agent-green);
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--agent-green);
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px var(--agent-green);
+        }
+
+        .article-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--agent-green);
+            text-shadow: 
+                0 0 10px var(--agent-green),
+                0 0 20px var(--agent-green),
+                0 0 30px var(--matrix-green);
+            margin: 2rem 0;
+            animation: textGlow 2s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px var(--agent-green); }
+            to { text-shadow: 0 0 20px var(--agent-green), 0 0 30px var(--matrix-green); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ОСНОВНОЙ КОНТЕЙНЕР */
+        .terminal-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .terminal-container::after {
+            content: '█';
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: var(--agent-green);
+            animation: cursor 1s infinite;
+            font-size: 2rem;
+        }
+
+        @keyframes cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* СЕКЦИИ */
+        .data-section {
+            background: rgba(0, 30, 0, 0.7);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            border-left: 5px solid var(--agent-green);
+            border-right: 5px solid var(--agent-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .data-section::before {
+            content: '>_';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: var(--matrix-green);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .data-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                transparent 0%,
+                var(--scan-line) 10%,
+                transparent 20%,
+                var(--scan-line) 30%,
+                transparent 40%,
+                var(--scan-line) 50%,
+                transparent 60%,
+                var(--scan-line) 70%,
+                transparent 80%,
+                var(--scan-line) 90%,
+                transparent 100%
+            );
+            z-index: 0;
+            pointer-events: none;
+            animation: scanMove 20s linear infinite;
+        }
+
+        @keyframes scanMove {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: var(--matrix-green);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .terminal-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* КАРТОЧКИ С ДАННЫМИ */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .data-card {
+            background: rgba(0, 40, 0, 0.8);
+            border: 2px solid var(--matrix-green);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .data-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px var(--agent-green);
+            border-color: var(--agent-green);
+        }
+
+        .data-card::before {
+            content: 'DATA_PACKET';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 0.8rem;
+            color: var(--matrix-green);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .card-title {
+            color: var(--agent-green);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* МИНИ-КАРТЫ */
+        .map-container {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #002200, #004400, #006600);
+            margin: 2rem 0;
+            position: relative;
+            border: 3px solid var(--agent-green);
+            overflow: hidden;
+        }
+
+        .map-point {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: var(--agent-green);
+            border-radius: 50%;
+            animation: pulsePoint 2s infinite;
+            box-shadow: 0 0 20px var(--agent-green);
+        }
+
+        @keyframes pulsePoint {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        /* ТЕРМИНАЛЬНЫЙ ВЫВОД */
+        .terminal-output {
+            background: black;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 3px solid var(--matrix-green);
+            font-family: 'Courier New', monospace;
+            color: var(--agent-green);
+            height: 300px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+            animation: typewriter 0.1s steps(40) forwards;
+            opacity: 0;
+        }
+
+        .terminal-line:nth-child(1) { animation-delay: 0.5s; }
+        .terminal-line:nth-child(2) { animation-delay: 1s; }
+        .terminal-line:nth-child(3) { animation-delay: 1.5s; }
+        .terminal-line:nth-child(4) { animation-delay: 2s; }
+        .terminal-line:nth-child(5) { animation-delay: 2.5s; }
+
+        @keyframes typewriter {
+            to { opacity: 1; }
+        }
+
+        /* ИНТЕРАКТИВНАЯ КАРТА */
+        .interactive-map {
+            text-align: center;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 5px double var(--agent-green);
+            position: relative;
+        }
+
+        .map-grid {
+            display: inline-grid;
+            grid-template-columns: repeat(10, 30px);
+            grid-template-rows: repeat(10, 30px);
+            gap: 2px;
+            margin: 2rem auto;
+        }
+
+        .grid-cell {
+            width: 30px;
+            height: 30px;
+            background: #003300;
+            border: 1px solid #005500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .grid-cell:hover {
+            background: var(--agent-green);
+            transform: scale(1.2);
+        }
+
+        .grid-cell.active {
+            background: #ff0000;
+            animation: alert 1s infinite;
+        }
+
+        @keyframes alert {
+            0%, 100% { background: #ff0000; }
+            50% { background: #ff5555; }
+        }
+
+        /* КНОПКИ АНАЛИЗА */
+        .analysis-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .analysis-btn {
+            background: transparent;
+            border: 2px solid var(--matrix-green);
+            color: var(--agent-green);
+            padding: 1.5rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .analysis-btn:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--agent-green);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--agent-green);
+        }
+
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2.5rem;
+            }
+            
+            .terminal-container {
+                padding: 1rem;
+            }
+            
+            .data-section {
+                padding: 1.5rem;
+            }
+            
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .analysis-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ГЛИТЧ-ЭФФЕКТЫ */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-anim 0.3s infinite;
+            color: #ff00ff;
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-anim 0.3s infinite reverse;
+            color: #00ffff;
+            z-index: -2;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- ШАПКА В СТИЛЕ ТЕРМИНАЛА РАЗВЕДКИ -->
+    <header class="terminal-header">
+        <div class="classification">
+            <i class="fas fa-satellite-dish"></i> СОВЕРШЕННО СЕКРЕТНО: УРОВЕНЬ "GAMING-INTEL"
+        </div>
+        
+        <h1 class="article-title glitch" data-text="THEBRIANMAPS: АГЕНТ 0047">
+            THEBRIANMAPS: АГЕНТ 0047
+        </h1>
+        
+        <div style="font-family: 'Orbitron', monospace; font-size: 1.2rem; color: var(--matrix-green); margin-top: 2rem;">
+            >_ ДОКУМЕНТАЦИЯ ПО ОПЕРАЦИИ "ВИРТУАЛЬНАЯ ГЕОРАЗВЕДКА"
+        </div>
+    </header>
+
+    <div class="terminal-container">
+        <!-- ВВЕДЕНИЕ -->
+        <section class="data-section">
+            <h2 class="section-title">
+                <i class="fas fa-map-marked-alt"></i>
+                РАЗДЕЛ 1: ПРИКРЫТИЕ "ЛЕТСПЛЕЙЩИК"
+            </h2>
+            
+            <p class="terminal-text">
+                <strong>Кодовое имя: TheBrianMaps</strong><br>
+                <strong>Настоящее имя: Кузя</strong><br>
+                <strong>Статус: Активный агент</strong><br>
+                <strong>Специализация: Виртуальная картография и геоданные</strong>
+            </p>
+            
+            <p class="terminal-text">
+                Публичная легенда: "Весёлый летсплейщик, который играет в игры".<br>
+                Реальность: Агент Картографического Синдиката, собирающий данные через игровые миры.
+            </p>
+            
+            <div class="map-container">
+                <!-- Точки на карте будут добавлены через JS -->
+            </div>
+        </section>
+
+        <!-- ДОКАЗАТЕЛЬСТВА -->
+        <section class="data-section">
+            <h2 class="section-title">
+                <i class="fas fa-search"></i>
+                РАЗДЕЛ 2: СОБРАННЫЕ УЛИКИ
+            </h2>
+            
+            <div class="data-grid">
+                <div class="data-card">
+                    <div class="card-title">ПАТТЕРНЫ ИССЛЕДОВАНИЯ</div>
+                    <p>Анализ 500+ видео показал: Кузя всегда исследует карту ПО ЧАСОВОЙ СТРЕЛКЕ. 
+                    Это стандартный протокол военной картографии, а не поведение обычного игрока.</p>
+                    <div style="margin-top: 1rem; color: var(--matrix-green); font-size: 0.9rem;">
+                        <i class="fas fa-code-branch"></i> СОВПАДЕНИЕ: 97.3%
+                    </div>
+                </div>
+                
+                <div class="data-card">
+                    <div class="card-title">КООРДИНАТНЫЕ СЕТКИ</div>
+                    <p>В его стримах часто мелькают координаты (X, Y, Z). При наложении на реальные 
+                    карты они образуют сетку над стратегическими объектами.</p>
+                    <div style="margin-top: 1rem; color: var(--matrix-green); font-size: 0.9rem;">
+                        <i class="fas fa-crosshairs"></i> ОБНАРУЖЕНО: 143 точки
+                    </div>
+                </div>
+                
+                <div class="data-card">
+                    <div class="card-title">"СЛУЧАЙНЫЕ" ОШИБКИ</div>
+                    <p>Когда он "случайно" падает с обрыва или тонет — на самом деле проверяет 
+                    физические параметры игры. Эти данные используются для симуляции реальных условий.</p>
+                    <div style="margin-top: 1rem; color: var(--matrix-green); font-size: 0.9rem;">
+                        <i class="fas fa-bug"></i> ТЕСТИРОВАНИЕ: 89 инцидентов
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Терминальный вывод -->
+            <div class="terminal-output">
+                <div class="terminal-line">>_ АНАЛИЗ_ПОВЕДЕНИЯ_AGENT_0047.exe</div>
+                <div class="terminal-line">ЗАГРУЗКА ДАННЫХ...</div>
+                <div class="terminal-line">✓ Паттерны исследования: ВОЕННЫЙ СТАНДАРТ</div>
+                <div class="terminal-line">✓ Координатные сетки: СОВПАДАЮТ С РЕАЛЬНЫМИ ОБЪЕКТАМИ</div>
+                <div class="terminal-line">✓ "Ошибки": ЗАПЛАНИРОВАННЫЕ ТЕСТЫ</div>
+                <div class="terminal-line">ВЫВОД: AGENT_0047 ВЫПОЛНЯЕТ ОПЕРАЦИЮ "VIRTUAL_MAPPING"</div>
+            </div>
+        </section>
+
+        <!-- ИГРЫ КАК ТЕСТОВЫЕ ПОЛИГОНЫ -->
+        <section class="data-section">
+            <h2 class="section-title">
+                <i class="fas fa-gamepad"></i>
+                РАЗДЕЛ 3: ОПЕРАЦИЯ "ИГРОВЫЕ ПОЛИГОНЫ"
+            </h2>
+            
+            <p class="terminal-text">
+                Каждая игра, в которую играет Кузя — тестовый полигон для реальных операций:
+            </p>
+            
+            <div class="data-grid">
+                <div class="data-card">
+                    <div class="card-title">GTA V</div>
+                    <p>Карта Лос-Сантоса используется для тренировки городских операций. 
+                    Маршруты доставки в игре совпадают с реальными логистическими цепочками.</p>
+                </div>
+                
+                <div class="data-card">
+                    <div class="card-title">MINECRAFT</div>
+                    <p>Проектирование подземных сооружений. Все его "крепости" — тесты 
+                    систем жизнеобеспечения для реальных бункеров.</p>
+                </div>
+                
+                <div class="data-card">
+                    <div class="card-title">RED DEAD REDEMPTION 2</div>
+                    <p>Изучение навигации по дикой местности без технологий. 
+                    Применяется в подготовке агентов для работы в "цифровых пустынях".</p>
+                </div>
+            </div>
+            
+            <!-- Интерактивная карта -->
+            <div class="interactive-map">
+                <h3 style="color: var(--agent-green); margin-bottom: 1rem;">
+                    <i class="fas fa-map"></i> ИНТЕРАКТИВНАЯ КАРТА АКТИВНОСТИ
+                </h3>
+                <p style="margin-bottom: 2rem;">Найдите все точки сбора данных (10/10)</p>
+                
+                <div class="map-grid" id="gameMap">
+                    <!-- Ячейки будут сгенерированы через JS -->
+                </div>
+                
+                <p id="mapResult" style="margin-top: 1rem; color: var(--matrix-green);"></p>
+            </div>
+        </section>
+
+        <!-- ТЕОРИИ -->
+        <section class="data-section">
+            <h2 class="section-title">
+                <i class="fas fa-brain"></i>
+                РАЗДЕЛ 4: АНАЛИЗ МОТИВАЦИИ
+            </h2>
+            
+            <p class="terminal-text">
+                Зачем Картографическому Синдикату нужен ютубер? Три основные теории:
+            </p>
+            
+            <div class="analysis-panel">
+                <button class="analysis-btn" onclick="showAnalysis(1)">
+                    <i class="fas fa-globe-americas"></i><br>
+                    ГЛОБАЛЬНАЯ<br>СЕТЬ
+                </button>
+                
+                <button class="analysis-btn" onclick="showAnalysis(2)">
+                    <i class="fas fa-robot"></i><br>
+                    ТРЕНИРОВКА<br>ИИ
+                </button>
+                
+                <button class="analysis-btn" onclick="showAnalysis(3)">
+                    <i class="fas fa-user-secret"></i><br>
+                    НАБОР<br>АГЕНТОВ
+                </button>
+            </div>
+            
+            <div id="analysis1" class="terminal-output" style="display: none; margin-top: 2rem;">
+                <div class="terminal-line">>_ ТЕОРИЯ 1: ГЛОБАЛЬНАЯ СЕТЬ</div>
+                <div class="terminal-line">Кузя создаёт виртуальную карту мира через игры.</div>
+                <div class="terminal-line">Каждая игровая локация = реальное место.</div>
+                <div class="terminal-line">Маршруты доставки в GTA = реальные логистические цепочки.</div>
+                <div class="terminal-line">ВЕРОЯТНОСТЬ: 65%</div>
+            </div>
+            
+            <div id="analysis2" class="terminal-output" style="display: none; margin-top: 2rem;">
+                <div class="terminal-line">>_ ТЕОРИЯ 2: ТРЕНИРОВКА ИИ</div>
+                <div class="terminal-line">Его прохождения — обучающая база для ИИ-навигатора.</div>
+                <div class="terminal-line">Как ИИ учится ориентироваться в сложных средах.</div>
+                <div class="terminal-line">Будущее: автономные агенты в реальном мире.</div>
+                <div class="terminal-line">ВЕРОЯТНОСТЬ: 25%</div>
+            </div>
+            
+            <div id="analysis3" class="terminal-output" style="display: none; margin-top: 2rem;">
+                <div class="terminal-line">>_ ТЕОРИЯ 3: НАБОР АГЕНТОВ</div>
+                <div class="terminal-line">Зрители, которые лучше всех ориентируются в играх.</div>
+                <div class="terminal-line">Получают "предложения о работе" через скрытые сообщения.</div>
+                <div class="terminal-line">Уже завербовано: 47 человек (по нашим данным).</div>
+                <div class="terminal-line">ВЕРОЯТНОСТЬ: 10%</div>
+            </div>
+        </section>
+
+        <!-- КАК РАБОТАЕТ СИСТЕМА -->
+        <section class="data-section">
+            <h2 class="section-title">
+                <i class="fas fa-sitemap"></i>
+                РАЗДЕЛ 5: АЛГОРИТМ РАБОТЫ
+            </h2>
+            
+            <div class="terminal-output">
+                <div class="terminal-line">>_ SYSINFO: OPERATION_VIRTUAL_MAPPING</div>
+                <div class="terminal-line">1. ВЫБОР ИГРЫ (критерии: открытый мир, детальная карта)</div>
+                <div class="terminal-line">2. ПОЛНОЕ ИССЛЕДОВАНИЕ (100% карты, все маршруты)</div>
+                <div class="terminal-line">3. ЭКСТРАКЦИЯ ДАННЫХ (координаты, высоты, пути)</div>
+                <div class="terminal-line">4. ПЕРЕНОС НА РЕАЛЬНЫЕ КАРТЫ (алгоритм трансляции)</div>
+                <div class="terminal-line">5. ВЕРИФИКАЦИЯ (сравнение с реальными данными)</div>
+                <div class="terminal-line">6. ОБНОВЛЕНИЕ БАЗЫ ДАННЫХ (синхронизация)</div>
+                <div class="terminal-line">СТАТУС: АКТИВЕН (с 2015 года)</div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <div style="display: inline-block; padding: 1rem 2rem; background: rgba(0, 255, 136, 0.1); border: 2px solid var(--agent-green);">
+                    <i class="fas fa-database"></i>
+                    <span style="font-family: 'Orbitron', monospace;">ОБЪЁМ СОБРАННЫХ ДАННЫХ: 847 ТБ</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ИГРА: НАЙДИ ШПИОНА -->
+        <section class="data-section">
+            <h2 class="section-title">
+                <i class="fas fa-user-ninja"></i>
+                РАЗДЕЛ 6: ТЕСТ НА БДИТЕЛЬНОСТЬ
+            </h2>
+            
+            <div style="text-align: center; padding: 2rem; border: 3px solid var(--matrix-green);">
+                <p class="terminal-text" style="font-size: 1.3rem;">
+                    Найдите скрытые координаты в "обычном" комментарии Кузи:
+                </p>
+                
+                <div style="background: rgba(0, 0, 0, 0.5); padding: 1.5rem; margin: 1.5rem 0; border-left: 5px solid var(--agent-green);">
+                    <p style="font-family: 'Courier New', monospace; color: var(--agent-green);">
+                        "Привет, ребята! Сегодня будем проходить новую миссию в GTA.<br>
+                        Начинаем от моста (X: 125.7), едем к аэропорту (Y: -83.2),<br>
+                        потом заезжаем за оружием (Z: 45.1). Не забывайте подписываться!"
+                    </p>
+                </div>
+                
+                <div style="margin-top: 1.5rem;">
+                    <input type="text" id="coordInput" placeholder="Введите координаты (формат: X, Y, Z)" 
+                           style="background: black; color: var(--agent-green); border: 2px solid var(--matrix-green); 
+                                  padding: 0.8rem; width: 300px; font-family: 'Courier New', monospace; text-align: center;">
+                    
+                    <button onclick="checkCoordinates()" 
+                            style="background: transparent; color: var(--agent-green); border: 2px solid var(--agent-green); 
+                                   padding: 0.8rem 2rem; margin-left: 1rem; font-family: 'Orbitron', monospace; 
+                                   cursor: pointer; transition: all 0.3s;">
+                        ПРОВЕРИТЬ
+                    </button>
+                </div>
+                
+                <p id="coordResult" style="margin-top: 1rem; font-family: 'Orbitron', monospace;"></p>
+            </div>
+        </section>
+
+        <!-- СЕКРЕТНОЕ СООБЩЕНИЕ -->
+        <section class="data-section" style="border-color: #ff0000;">
+            <h2 class="section-title" style="color: #ff5555;">
+                <i class="fas fa-exclamation-triangle"></i>
+                СЕКРЕТНОЕ СООБЩЕНИЕ ДЛЯ КУЗИ
+            </h2>
+            
+            <div style="text-align: center;">
+                <p class="terminal-text">
+                    Если ты читаешь это, агент 0047, знай: мы тебя видим.
+                </p>
+                
+                <div style="margin: 2rem 0; padding: 1.5rem; background: rgba(255, 0, 0, 0.1); border: 2px dashed #ff0000;">
+                    <p style="font-family: 'Orbitron', monospace; color: #ff5555;">
+                        КОД ДОСТУПА: GTA-MC-RDR2<br>
+                        СЛЕДУЮЩАЯ ЦЕЛЬ: CYBERPUNK 2077<br>
+                        СРОК: ДО 01.12.2023<br>
+                        ВОЗНАГРАЖДЕНИЕ: 1,000,000 ВИРТУАЛЬНЫХ ЕДИНИЦ
+                    </p>
+                </div>
+                
+                <button onclick="sendMessage()" 
+                        style="background: linear-gradient(45deg, #ff0000, #ff5555); color: white; 
+                               border: none; padding: 1rem 3rem; font-family: 'Orbitron', monospace; 
+                               font-size: 1.2rem; cursor: pointer; margin-top: 1rem;">
+                    <i class="fas fa-paper-plane"></i> ОТПРАВИТЬ ПОДТВЕРЖДЕНИЕ
+                </button>
+                
+                <p id="messageStatus" style="margin-top: 1rem; font-family: 'Orbitron', monospace;"></p>
+            </div>
+        </section>
+
+        <!-- ДИСКЛЕЙМЕР -->
+        <section class="data-section" style="border-color: #5555ff;">
+            <h2 class="section-title" style="color: #5555ff;">
+                <i class="fas fa-info-circle"></i>
+                ВАЖНАЯ ИНФОРМАЦИЯ
+            </h2>
+            
+            <p class="terminal-text" style="text-align: center;">
+                Данный материал является художественной фантазией и создан в развлекательных целях.<br>
+                TheBrianMaps (Кузя) — реальный ютубер, и мы уважаем его творчество.<br>
+                Все совпадения с реальными организациями случайны.<br>
+                <br>
+                <span style="color: var(--agent-green); font-family: 'Orbitron', monospace;">
+                    САЙТ СОЗДАН ДЛЯ РАЗВЛЕЧЕНИЯ. НЕ ПРИНИМАЙТЕ ВСЁ ВСЕРЬЁЗ.
+                </span>
+            </p>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <div style="display: inline-flex; gap: 2rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem;">🎮</div>
+                        <div>ИГРАЙТЕ</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem;">😂</div>
+                        <div>СМЕЙТЕСЬ</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem;">❤️</div>
+                        <div>НАСЛАЖДАЙТЕСЬ</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Генерация точек на карте
+        function generateMapPoints() {
+            const mapContainer = document.querySelector('.map-container');
+            for (let i = 0; i < 15; i++) {
+                const point = document.createElement('div');
+                point.className = 'map-point';
+                point.style.left = `${Math.random() * 90 + 5}%`;
+                point.style.top = `${Math.random() * 80 + 10}%`;
+                point.style.animationDelay = `${i * 0.2}s`;
+                mapContainer.appendChild(point);
+            }
+        }
+
+        // Интерактивная карта-сетка
+        function createGameMap() {
+            const mapGrid = document.getElementById('gameMap');
+            const totalCells = 100;
+            const targetCells = [12, 25, 38, 47, 56, 63, 74, 82, 91, 99];
+            
+            for (let i = 0; i < totalCells; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'grid-cell';
+                cell.dataset.index = i;
+                
+                if (targetCells.includes(i)) {
+                    cell.dataset.target = 'true';
+                }
+                
+                cell.addEventListener('click', function() {
+                    if (this.dataset.target === 'true') {
+                        this.classList.add('active');
+                        this.innerHTML = '<i class="fas fa-crosshairs"></i>';
+                        checkMapProgress();
+                    } else {
+                        this.style.background = '#550000';
+                        setTimeout(() => {
+                            this.style.background = '';
+                        }, 500);
+                    }
+                });
+                
+                mapGrid.appendChild(cell);
+            }
+        }
+
+        // Проверка прогресса по карте
+        function checkMapProgress() {
+            const targetCells = document.querySelectorAll('[data-target="true"]');
+            const foundCells = document.querySelectorAll('[data-target="true"].active');
+            const resultElement = document.getElementById('mapResult');
+            
+            if (targetCells.length === foundCells.length) {
+                resultElement.innerHTML = '<span style="color: var(--agent-green);">✅ ВСЕ ТОЧКИ ОБНАРУЖЕНЫ! МИССИЯ ВЫПОЛНЕНА!</span>';
+                resultElement.style.animation = 'blink 1s infinite';
+            } else {
+                resultElement.textContent = `Найдено точек: ${foundCells.length}/${targetCells.length}`;
+            }
+        }
+
+        // Показ анализа
+        function showAnalysis(num) {
+            // Скрываем все
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`analysis${i}`).style.display = 'none';
+            }
+            
+            // Показываем выбранный
+            const analysis = document.getElementById(`analysis${num}`);
+            analysis.style.display = 'block';
+            
+            // Анимация появления
+            analysis.style.opacity = '0';
+            analysis.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                analysis.style.transition = 'all 0.5s ease';
+                analysis.style.opacity = '1';
+                analysis.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        // Проверка координат
+        function checkCoordinates() {
+            const input = document.getElementById('coordInput').value;
+            const resultElement = document.getElementById('coordResult');
+            
+            if (input === '125.7, -83.2, 45.1' || input === '125.7,-83.2,45.1') {
+                resultElement.innerHTML = '<span style="color: var(--agent-green);">✅ КОД ПРИНЯТ! Вы обнаружили скрытые координаты!</span>';
+                resultElement.style.animation = 'blink 1s infinite';
+                setTimeout(() => resultElement.style.animation = '', 2000);
+            } else {
+                resultElement.innerHTML = '<span style="color: #ff5555;">❌ НЕВЕРНО! Координаты должны быть: X: 125.7, Y: -83.2, Z: 45.1</span>';
+            }
+        }
+
+        // Отправка "секретного сообщения"
+        function sendMessage() {
+            const statusElement = document.getElementById('messageStatus');
+            
+            const messages = [
+                "📡 СООБЩЕНИЕ ОТПРАВЛЕНО... ОЖИДАНИЕ ПОДТВЕРЖДЕНИЯ",
+                "🛰️ СИГНАЛ ПЕРЕХВАЧЕН... ШИФРОВКА АКТИВНА",
+                "🔐 СОЕДИНЕНИЕ УСТАНОВЛЕНО... AGENT_0047 НА СВЯЗИ",
+                "💾 ДАННЫЕ ЗАГРУЖЕНЫ... ОПЕРАЦИЯ ПРОДОЛЖАЕТСЯ"
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            statusElement.textContent = randomMessage;
+            statusElement.style.color = var('--agent-green');
+            
+            // Имитация задержки сети
+            setTimeout(() => {
+                statusElement.innerHTML = '<span style="color: var(--agent-green);">✅ ПОДТВЕРЖДЕНИЕ ПОЛУЧЕНО! МИССИЯ ПРИНЯТА!</span>';
+            }, 1500);
+        }
+
+        // Случайные глитч-эффекты
+        function randomGlitch() {
+            const glitchElements = document.querySelectorAll('.glitch');
+            glitchElements.forEach(el => {
+                if (Math.random() > 0.7) {
+                    el.style.animation = 'glitch-anim 0.3s';
+                    setTimeout(() => {
+                        el.style.animation = '';
+                    }, 300);
+                }
+            });
+            
+            // Случайные звуковые эффекты (в воображении)
+            const terminals = document.querySelectorAll('.terminal-output');
+            terminals.forEach(terminal => {
+                if (Math.random() > 0.9) {
+                    terminal.style.borderColor = '#ff00ff';
+                    setTimeout(() => {
+                        terminal.style.borderColor = '';
+                    }, 100);
+                }
+            });
+        }
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            generateMapPoints();
+            createGameMap();
+            
+            // Запуск случайных глитчей
+            setInterval(randomGlitch, 3000);
+            
+            // Автопрокрутка терминального вывода
+            const terminalOutputs = document.querySelectorAll('.terminal-output');
+            terminalOutputs.forEach(output => {
+                output.scrollTop = output.scrollHeight;
+            });
+        });
+
+        // Секретная комбинация клавиш
+        let keySequence = [];
+        const konamiCode = [
+            'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+            'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+            'b', 'a'
+        ];
+
+        document.addEventListener('keydown', function(e) {
+            keySequence.push(e.key);
+            if (keySequence.length > konamiCode.length) {
+                keySequence.shift();
+            }
+            
+            if (keySequence.join(',') === konamiCode.join(',')) {
+                document.body.style.background = 'linear-gradient(45deg, #ff00ff, #00ffff, #ffff00)';
+                alert('🎮 КОНТРА-КОД АКТИВИРОВАН! 🎮\n\nВы получили доступ к секретному уровню!');
+                keySequence = [];
+            }
+        });
+    </script>
+</body>
+</html>
